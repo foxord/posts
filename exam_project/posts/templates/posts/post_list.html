@@ -1,0 +1,43 @@
+{% extends 'posts/base.html' %}
+
+{% block title %}Список постов{% endblock %}
+
+{% block content %}
+<h1>Посты</h1>
+<a href="{% url 'post_create' %}" class="btn btn-primary mb-3">Добавить пост</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Заголовок</th>
+            <th>Просмотры</th>
+            <th>Статус</th>
+            <th>Дата публикации</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td>{{ post.title }}</td>
+            <td>{{ post.views }}</td>
+            <td>
+                {% if post.is_published %}
+                    <span class="badge bg-success">Опубликован</span>
+                {% else %}
+                    <span class="badge bg-secondary">Черновик</span>
+                {% endif %}
+            </td>
+            <td>{{ post.published_at }}</td>
+            <td>
+                <a href="{% url 'post_update' post.id %}" class="btn btn-sm btn-warning">Изменить</a>
+                <a href="{% url 'post_delete' post.id %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Нет постов. Добавьте первый.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
