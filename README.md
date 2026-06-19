@@ -3,6 +3,7 @@
 
 **Команды:**
 ```bash
+ sudo apt install python3-venv
 mkdir exam_project && cd exam_project
 python3 -m venv venv
 source venv/bin/activate
